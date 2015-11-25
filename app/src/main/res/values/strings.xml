@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Parks!</string>
     <string name="action_settings">Settings</string>
+
+    <!--Nav Menu Strings-->
+    <string name="nav_menu_home">Home</string>
+    <string name="nav_menu_map">Map</string>
 </resources>

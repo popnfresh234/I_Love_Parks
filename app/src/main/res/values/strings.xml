@@ -5,4 +5,8 @@
     <!--Nav Menu Strings-->
     <string name="nav_menu_home">Home</string>
     <string name="nav_menu_map">Map</string>
+
+    <!--Error Messages-->
+    <string name="error_json">The server has returned invalid data</string>
+    <string name="error_network">Network currently unavailable, check network status and try again!</string>
 </resources>

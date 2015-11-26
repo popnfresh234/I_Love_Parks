@@ -1,9 +1,7 @@
 package alexander.dmtaiwan.com.parks.Views;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,10 +10,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
+import java.util.List;
+
+import alexander.dmtaiwan.com.parks.Bus.EventBus;
+import alexander.dmtaiwan.com.parks.Bus.ParkListEvent;
+import alexander.dmtaiwan.com.parks.Models.Park;
 import alexander.dmtaiwan.com.parks.Presenters.MainPresenter;
 import alexander.dmtaiwan.com.parks.Presenters.MainPresenterImpl;
 import alexander.dmtaiwan.com.parks.R;
+import alexander.dmtaiwan.com.parks.Utilities.Utilities;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -30,25 +35,40 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
     @Bind(R.id.navigation_view)
     NavigationView mNavigationView;
 
+    @Bind(R.id.main_content_container)
+    FrameLayout mContentContainer;
+
     private final static String LOG_TAG = MainActivity.class.getSimpleName();
+
     private MainPresenter mPresenter;
+    private int mNavPositoin;
+    private List<Park> mParksList;
+
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mNavPositoin = savedInstanceState.getInt(Utilities.OUTSTATE_NAV_POSITION, 0);
+        Menu menu = mNavigationView.getMenu();
+        menu.getItem(mNavPositoin).setChecked(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        if (savedInstanceState != null) {
+            mNavPositoin = savedInstanceState.getInt(Utilities.OUTSTATE_NAV_POSITION);
+        }else {
+            Log.i(LOG_TAG, "inflating frag");
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_content_container, new ParkListFragment()).commit();
+        }
+
+
+
 
         setupToolbar();
         setupNavDrawer();
@@ -102,8 +122,21 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
     }
 
     @Override
-    public void onDataReturned() {
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(Utilities.OUTSTATE_NAV_POSITION, mNavPositoin);
+    }
 
+    @Override
+    public void onDataReturned(List<Park> parksList) {
+        mParksList = parksList;
+        ParkListEvent event = new ParkListEvent(parksList);
+        EventBus.getInstance().post(event);
+    }
+
+    @Override
+    public void onError(String error) {
+        Log.i(LOG_TAG, error);
     }
 
     @Override
@@ -111,9 +144,11 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
         item.setChecked(true);
         switch (item.getItemId()) {
             case R.id.drawer_home:
+                mNavPositoin = 0;
                 Log.i(LOG_TAG, "Home");
                 return true;
             case R.id.drawer_map:
+                mNavPositoin = 1;
                 Log.i(LOG_TAG, "Map");
                 return true;
             default:

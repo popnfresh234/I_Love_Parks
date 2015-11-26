@@ -3,4 +3,16 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+
+    <!--TextSizes-->
+    <dimen name="font_large">28sp</dimen>
+    <dimen name="font_medium">20sp</dimen>
+    <dimen name="font_small">12sp</dimen>
+    <dimen name="font_tiny">10sp</dimen>
+
+    <!--Spacing-->
+    <dimen name="recycler_padding_vertical">8dp</dimen>
+    <dimen name="recycler_poadding_horizontal">8dp</dimen>
+
 </resources>

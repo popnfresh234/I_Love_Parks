@@ -7,6 +7,10 @@ import android.os.Parcelable;
  * Created by lenovo on 11/22/2015.
  */
 public class Park implements Parcelable {
+
+    public Park() {
+    }
+
     private String ManageTelephone;
 
     private String AdministrativeArea;

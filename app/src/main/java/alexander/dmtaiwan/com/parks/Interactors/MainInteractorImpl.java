@@ -38,12 +38,12 @@ public class MainInteractorImpl implements MainInteractor{
 
                 @Override
                 public void onError(Throwable e) {
-                    Log.i("RX ERROR", e.toString());
+                    mListener.onError(e.toString());
                 }
 
                 @Override
                 public void onNext(HttpResponse httpResponse) {
-                    Log.i("GOT RESPONSE", httpResponse.getResponse());
+                    mListener.onDataReturned(httpResponse);
                 }
             };
 
@@ -56,6 +56,8 @@ public class MainInteractorImpl implements MainInteractor{
     }
 
     public interface MainListener{
-        void onDataReturned();
+        void onDataReturned(HttpResponse httpResponse);
+
+        void onError(String error);
     }
 }

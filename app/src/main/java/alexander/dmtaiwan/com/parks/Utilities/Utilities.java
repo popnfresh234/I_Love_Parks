@@ -15,6 +15,9 @@ public class Utilities {
 
     public static final String API_URL = "http://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire&rid=8f6fcb24-290b-461d-9d34-72ed1b3f51f0";
 
+    public static final Double TAIPEI_LAT = 25.033611;
+    public static final Double TAIPEI_LONG = 121.565;
+
     //Outstate strings
     public static final String OUTSTATE_NAV_POSITION = "com.dmtaiwan.alexander.nav_position";
 

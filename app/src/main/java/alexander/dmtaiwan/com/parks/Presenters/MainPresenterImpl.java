@@ -73,10 +73,11 @@ public class MainPresenterImpl implements MainPresenter, MainInteractorImpl.Main
                 park.setLatitude(jsonPark.getString("Latitude"));
                 park.setLongitude(jsonPark.getString("Longitude"));
                 park.setArea(jsonPark.getString("Area"));
-                park.setYearBuilt(jsonPark.getString("YearBuilts"));
+                park.setYearBuilt(jsonPark.getString("YearBuilt"));
                 park.setImage(jsonPark.getString("Image"));
                 park.setManagementName(jsonPark.getString("ManagementName"));
                 park.setManageTelephone(jsonPark.getString("ManageTelephone"));
+                parks.add(park);
             }
             return parks;
 

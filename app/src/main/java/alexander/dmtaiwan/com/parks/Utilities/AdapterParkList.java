@@ -40,7 +40,11 @@ public class AdapterParkList extends RecyclerView.Adapter<AdapterParkList.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
         Park park = mParksList.get(position);
+        holder.mNameText.setText(park.getParkName());
+        holder.mDistanceText.setText("110");
+
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import java.util.List;
 
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
 
     @Bind(R.id.main_content_container)
     FrameLayout mContentContainer;
+
+    @Bind(R.id.toolbar_progress)
+    ProgressBar mProgressBar;
 
     private final static String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -132,11 +136,22 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
         mParksList = parksList;
         ParkListEvent event = new ParkListEvent(parksList);
         EventBus.getInstance().post(event);
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void onError(String error) {
         Log.i(LOG_TAG, error);
+    }
+
+    @Override
+    public void showProgress() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override

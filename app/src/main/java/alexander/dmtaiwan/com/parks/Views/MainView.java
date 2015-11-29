@@ -11,4 +11,8 @@ public interface MainView {
     void onDataReturned(List<Park> parksList);
 
     void onError(String error);
+
+    void showProgress();
+
+    void hideProgress();
 }

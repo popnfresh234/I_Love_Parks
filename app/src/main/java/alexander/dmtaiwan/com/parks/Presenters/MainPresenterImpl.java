@@ -55,6 +55,11 @@ public class MainPresenterImpl implements MainPresenter, MainInteractorImpl.Main
         mView.onError(error);
     }
 
+    @Override
+    public void showProgress() {
+        mView.showProgress();
+    }
+
     private List<Park> parseJson(String response) {
         List<Park> parks = new ArrayList<>();
         try {

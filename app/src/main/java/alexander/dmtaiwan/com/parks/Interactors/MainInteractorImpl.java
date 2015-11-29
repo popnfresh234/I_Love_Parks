@@ -34,6 +34,7 @@ public class MainInteractorImpl implements MainInteractor{
     public void requestData() {
 
         if(Utilities.doesFileExist(mContext)) {
+            mListener.showProgress();
             Log.i(LOG_TAG, "reading from SD card");
             //TODO show loading
             String response = Utilities.readFromFile(mContext);
@@ -46,6 +47,7 @@ public class MainInteractorImpl implements MainInteractor{
         }
 
         if (Utilities.isNetworkAvailable(mContext)) {
+            mListener.showProgress();
             Log.i(LOG_TAG, "Network Request");
             Service service = new Service();
             Observable<HttpResponse> httpResponseObservable = service.requestParks();
@@ -88,5 +90,7 @@ public class MainInteractorImpl implements MainInteractor{
         void onDataReturned(HttpResponse httpResponse);
 
         void onError(String error);
+
+        void showProgress();
     }
 }

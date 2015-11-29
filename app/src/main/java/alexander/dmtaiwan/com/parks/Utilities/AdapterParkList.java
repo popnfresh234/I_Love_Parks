@@ -1,6 +1,7 @@
 package alexander.dmtaiwan.com.parks.Utilities;
 
 import android.content.Context;
+import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 
 import alexander.dmtaiwan.com.parks.Models.Park;
@@ -43,8 +45,17 @@ public class AdapterParkList extends RecyclerView.Adapter<AdapterParkList.ViewHo
 
         Park park = mParksList.get(position);
         holder.mNameText.setText(park.getParkName());
-        holder.mDistanceText.setText("110");
 
+        //Calculate distance from user
+        Location userLocation = Utilities.getUserLocation(mContext);
+
+        if (userLocation != null) {
+            double parkLat = Double.valueOf(park.getLatitude());
+            double parkLng = Double.valueOf(park.getLongitude());
+            float distance = Utilities.calculateDistance(parkLat, parkLng, userLocation);
+            String distanceString = Utilities.formatDistance(distance);
+            holder.mDistanceText.setText(distanceString);
+        }
     }
 
     @Override
@@ -80,9 +91,26 @@ public class AdapterParkList extends RecyclerView.Adapter<AdapterParkList.ViewHo
 
     public void udpateData(List<Park> parksList) {
         Log.i(LOG_TAG, "updating data");
-        mParksList = parksList;
+        mParksList = sortList(parksList);
         notifyDataSetChanged();
         mEmptyView.setVisibility(mParksList.size() == 0 ? View.VISIBLE : View.GONE);
+    }
+
+    private List<Park> sortList(List<Park> parksList) {
+
+        int sortCode = Utilities.getSortCode(mContext);
+        switch (sortCode) {
+            case Utilities.SORT_DEFAULT:
+                IDComparator idComparator = new IDComparator();
+                Collections.sort(parksList, idComparator);
+                return parksList;
+            case Utilities.SORT_PROXIMITY:
+                DistanceComparator distanceComparator = new DistanceComparator(Utilities.getUserLocation(mContext));
+                Collections.sort(parksList, distanceComparator);
+                return parksList;
+            default:
+                return parksList;
+        }
     }
 
     public interface RecyclerClickListener {

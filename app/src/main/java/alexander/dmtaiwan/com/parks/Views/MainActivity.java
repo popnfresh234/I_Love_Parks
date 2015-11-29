@@ -1,5 +1,6 @@
 package alexander.dmtaiwan.com.parks.Views;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,11 +22,12 @@ import alexander.dmtaiwan.com.parks.Models.Park;
 import alexander.dmtaiwan.com.parks.Presenters.MainPresenter;
 import alexander.dmtaiwan.com.parks.Presenters.MainPresenterImpl;
 import alexander.dmtaiwan.com.parks.R;
+import alexander.dmtaiwan.com.parks.Utilities.LocationProvider;
 import alexander.dmtaiwan.com.parks.Utilities.Utilities;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements MainView, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements MainView, NavigationView.OnNavigationItemSelectedListener, LocationProvider.LocationCallback {
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
     private MainPresenter mPresenter;
     private int mNavPositoin;
     private List<Park> mParksList;
+    private LocationProvider mLocationProvider;
 
 
     @Override
@@ -64,6 +67,11 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
 
+        //create location provider
+        if (mLocationProvider == null) {
+            mLocationProvider = new LocationProvider(this, this);
+        }
+
         if (savedInstanceState != null) {
             mNavPositoin = savedInstanceState.getInt(Utilities.OUTSTATE_NAV_POSITION);
         }else {
@@ -71,16 +79,27 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
             getSupportFragmentManager().beginTransaction().replace(R.id.main_content_container, new ParkListFragment()).commit();
         }
 
-
-
-
         setupToolbar();
         setupNavDrawer();
 
         mPresenter = new MainPresenterImpl(this, this);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mLocationProvider.connect();
+
         if (mPresenter != null) {
             mPresenter.requestData();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mLocationProvider.disconnect();
     }
 
     private void setupNavDrawer() {
@@ -169,5 +188,10 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
             default:
                 return true;
         }
+    }
+
+    @Override
+    public void handleNewLocation(Location location) {
+        Utilities.setUserLocation(location, this);
     }
 }

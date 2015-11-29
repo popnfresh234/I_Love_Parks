@@ -1,8 +1,11 @@
 package alexander.dmtaiwan.com.parks.Utilities;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -31,6 +34,17 @@ public class Utilities {
     //Outstate strings
     public static final String OUTSTATE_NAV_POSITION = "com.dmtaiwan.alexander.nav_position";
 
+    //Shard prefs keys
+    public static final String SHARED_PREFS_LOCATION_LAT_KEY = "com.dmtaiwan.alexander.key.location.lat";
+    public static final String SHARED_PREFS_LOCATION_LONG_KEY = "com.dmtaiwan.alexander.key.location.long";
+    public static final String SHARED_PREFS_SORT_KEY = "com.dmtaiwan.alexander.key.sort";
+
+    //Sort codes
+    public static final int SORT_DEFAULT =2222;
+    public static final int SORT_PROXIMITY = 3333;
+
+
+    //Networking utilities
     static public boolean isNetworkAvailable(Context c) {
         ConnectivityManager cm =
                 (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -48,6 +62,8 @@ public class Utilities {
         }
     }
 
+
+    //File system utilites
     static public boolean doesFileExist(Context context) {
         File file = context.getFileStreamPath(FILE_NAME);
         return file.exists();
@@ -88,5 +104,71 @@ public class Utilities {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    //Location utilities
+
+    public static float calculateDistance(double targetLat, double targetLong, Location userLocation) {
+        Location stationLocation = new Location("");
+
+        stationLocation.setLatitude(targetLat);
+        stationLocation.setLongitude(targetLong);
+
+        return userLocation.distanceTo(stationLocation);
+    }
+
+    public static String formatDistance(float meters) {
+        if (meters < 1000) {
+            return ((int) meters) + "m";
+        } else if (meters < 10000) {
+            return formatDec(meters / 1000f, 1) + "km";
+        } else {
+            return ((int) (meters / 1000f)) + "km";
+        }
+    }
+
+    private static String formatDec(float val, int dec) {
+        int factor = (int) Math.pow(10, dec);
+
+        int front = (int) (val);
+        int back = (int) Math.abs(val * (factor)) % factor;
+
+        return front + "." + back;
+    }
+
+    public static void setUserLocation(Location location, Context context) {
+        if (location != null) {
+            SharedPreferences settings;
+            SharedPreferences.Editor spe;
+            double lat = location.getLatitude();
+            double longitude = location.getLongitude();
+            settings = PreferenceManager.getDefaultSharedPreferences(context);
+            spe = settings.edit();
+            spe.putLong(SHARED_PREFS_LOCATION_LAT_KEY, Double.doubleToRawLongBits(lat));
+            spe.putLong(SHARED_PREFS_LOCATION_LONG_KEY, Double.doubleToRawLongBits(longitude));
+            spe.apply();
+        }
+    }
+
+    public static Location getUserLocation(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        double lat = Double.longBitsToDouble(prefs.getLong(Utilities.SHARED_PREFS_LOCATION_LAT_KEY, 0));
+        double longitude = Double.longBitsToDouble(prefs.getLong(Utilities.SHARED_PREFS_LOCATION_LONG_KEY, 0));
+        //If activity_station_detai; location has been stored in shared prefs, retrieve it and set the lat/long coordinates for the query
+        if (lat != 0 && longitude != 0) {
+            Location userLocation = new Location("newLocation");
+            userLocation.setLatitude(lat);
+            userLocation.setLongitude(longitude);
+            return userLocation;
+        } else {
+            return null;
+        }
+    }
+
+    public static int getSortCode(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        int sortKey = prefs.getInt(Utilities.SHARED_PREFS_SORT_KEY, SORT_DEFAULT);
+        return sortKey;
     }
 }

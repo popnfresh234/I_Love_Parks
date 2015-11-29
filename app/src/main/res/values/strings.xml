@@ -9,4 +9,5 @@
     <!--Error Messages-->
     <string name="error_json">The server has returned invalid data</string>
     <string name="error_network">Network currently unavailable, check network status and try again!</string>
+    <string name="error_http">The server is not responding, please try again later</string>
 </resources>

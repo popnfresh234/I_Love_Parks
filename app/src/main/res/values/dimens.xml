@@ -13,6 +13,9 @@
 
     <!--Spacing-->
     <dimen name="recycler_padding_vertical">8dp</dimen>
-    <dimen name="recycler_poadding_horizontal">8dp</dimen>
+    <dimen name="recycler_padding_horizontal">8dp</dimen>
+    <dimen name="recycler_margin_horizontal">8dp</dimen>
+    <dimen name="recycler_margin_bottom">8dp</dimen>
+    <dimen name="recycler_margin_top">16dp</dimen>
 
 </resources>

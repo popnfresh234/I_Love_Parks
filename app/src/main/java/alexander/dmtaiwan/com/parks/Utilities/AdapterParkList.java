@@ -97,7 +97,6 @@ public class AdapterParkList extends RecyclerView.Adapter<AdapterParkList.ViewHo
     }
 
     private List<Park> sortList(List<Park> parksList) {
-
         int sortCode = Utilities.getSortCode(mContext);
         switch (sortCode) {
             case Utilities.SORT_DEFAULT:

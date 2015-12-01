@@ -10,4 +10,25 @@
     <string name="error_json">The server has returned invalid data</string>
     <string name="error_network">Network currently unavailable, check network status and try again!</string>
     <string name="error_http">The server is not responding, please try again later</string>
+
+    <!--Shared Prefs Labels-->
+    <string name="pref_sort_order_key">sort</string>
+    <string name="pref_sort_order_label">Sort order</string>
+    <string name="pref_language_key">language</string>
+    <string name="pref_language_label">Language</string>
+
+    <string name="pref_sort_default_label">Sort by default order</string>
+    <string name="pref_sort_proximity_label">Sort by proximity</string>
+
+    <string name="pref_language_english_label">English</string>
+    <string name="pref_language_pinyin_label">Pinyin</string>
+    <string name="pref_language_chinese_label">Chinese</string>
+
+    <string name="pref_sort_default_value">default</string>
+    <string name="pref_sort_proximity_value">proximity</string>
+
+    <string name="pref_language_english_value">english</string>
+    <string name="pref_language_pinyin_value">pinyin</string>
+    <string name="pref_language_chinese_value">pinyin</string>
+
 </resources>

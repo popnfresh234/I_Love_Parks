@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_sort_options">
+        <item>@string/pref_sort_default_label</item>
+        <item>@string/pref_sort_proximity_label</item>
+    </string-array>
+
+    <string-array name="pref_language_options">
+        <item>@string/pref_language_english_label</item>
+        <item>@string/pref_language_pinyin_label</item>
+        <item>@string/pref_language_chinese_label</item>
+    </string-array>
+
+    <string-array name="pref_sort_values">
+        <item>@string/pref_sort_default_value</item>
+        <item>@string/pref_sort_proximity_value</item>
+    </string-array>
+
+    <string-array name="pref_language_values">
+        <item>@string/pref_language_english_value</item>
+        <item>@string/pref_language_pinyin_value</item>
+        <item>@string/pref_language_chinese_value</item>
+    </string-array>
+</resources>

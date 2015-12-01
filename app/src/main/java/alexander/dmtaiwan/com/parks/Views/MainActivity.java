@@ -1,5 +1,6 @@
 package alexander.dmtaiwan.com.parks.Views;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -138,6 +139,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 

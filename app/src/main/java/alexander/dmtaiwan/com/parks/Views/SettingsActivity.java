@@ -8,6 +8,8 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import alexander.dmtaiwan.com.parks.Bus.EventBus;
+import alexander.dmtaiwan.com.parks.Bus.SettingsEvent;
 import alexander.dmtaiwan.com.parks.R;
 
 /**
@@ -52,6 +54,8 @@ import alexander.dmtaiwan.com.parks.R;
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             String sortOrder = prefs.getString(getString(R.string.pref_sort_order_key), getString(R.string.pref_sort_default_value));
             Log.i(LOG_TAG, sortOrder);
+            SettingsEvent event = new SettingsEvent(getString(R.string.pref_sort_order_key));
+            EventBus.getInstance().post(event);
             finish();
         }
 
@@ -60,6 +64,8 @@ import alexander.dmtaiwan.com.parks.R;
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             String language = prefs.getString(getString(R.string.pref_language_key), getString(R.string.pref_language_english_value));
             Log.i(LOG_TAG, language);
+            SettingsEvent event = new SettingsEvent(getString(R.string.pref_language_key));
+            EventBus.getInstance().post(event);
             finish();
         }
     }

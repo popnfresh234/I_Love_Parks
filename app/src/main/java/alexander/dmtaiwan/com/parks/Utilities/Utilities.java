@@ -18,6 +18,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 
 import alexander.dmtaiwan.com.parks.Models.HttpResponse;
+import alexander.dmtaiwan.com.parks.R;
 
 /**
  * Created by lenovo on 11/19/2015.
@@ -166,9 +167,9 @@ public class Utilities {
         }
     }
 
-    public static int getSortCode(Context context) {
+    public static String getSortCode(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        int sortKey = prefs.getInt(Utilities.SHARED_PREFS_SORT_KEY, SORT_DEFAULT);
+        String sortKey = prefs.getString(context.getString(R.string.pref_sort_order_key), context.getString(R.string.pref_sort_default_value));
         return sortKey;
     }
 }

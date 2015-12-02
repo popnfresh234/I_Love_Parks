@@ -17,6 +17,7 @@ import java.util.List;
 
 import alexander.dmtaiwan.com.parks.Bus.EventBus;
 import alexander.dmtaiwan.com.parks.Bus.ParkListEvent;
+import alexander.dmtaiwan.com.parks.Bus.SettingsEvent;
 import alexander.dmtaiwan.com.parks.Models.Park;
 import alexander.dmtaiwan.com.parks.R;
 import alexander.dmtaiwan.com.parks.Utilities.AdapterParkList;
@@ -71,6 +72,16 @@ public class ParkListFragment extends Fragment implements AdapterParkList.Recycl
         mParksList = event.getParkList();
         if (mAdapter != null) {
             mAdapter.udpateData(mParksList);
+        }
+    }
+
+    @Subscribe
+    public void onSettingsEvent(SettingsEvent event) {
+        String key = event.getSettingKey();
+        if (key.equals(getString(R.string.pref_sort_order_key))) {
+            if (mAdapter != null) {
+                mAdapter.udpateData(mParksList);
+            }
         }
     }
 

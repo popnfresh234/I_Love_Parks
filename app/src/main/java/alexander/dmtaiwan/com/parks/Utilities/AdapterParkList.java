@@ -62,7 +62,7 @@ public class AdapterParkList extends RecyclerView.Adapter<AdapterParkList.ViewHo
     public int getItemCount() {
         if (mParksList != null) {
             return mParksList.size();
-        }else {
+        } else {
             return 0;
         }
     }
@@ -97,18 +97,15 @@ public class AdapterParkList extends RecyclerView.Adapter<AdapterParkList.ViewHo
     }
 
     private List<Park> sortList(List<Park> parksList) {
-        int sortCode = Utilities.getSortCode(mContext);
-        switch (sortCode) {
-            case Utilities.SORT_DEFAULT:
-                IDComparator idComparator = new IDComparator();
-                Collections.sort(parksList, idComparator);
-                return parksList;
-            case Utilities.SORT_PROXIMITY:
-                DistanceComparator distanceComparator = new DistanceComparator(Utilities.getUserLocation(mContext));
-                Collections.sort(parksList, distanceComparator);
-                return parksList;
-            default:
-                return parksList;
+        String sortCode = Utilities.getSortCode(mContext);
+        if (sortCode.equals(mContext.getString(R.string.pref_sort_proximity_value))) {
+            DistanceComparator distanceComparator = new DistanceComparator(Utilities.getUserLocation(mContext));
+            Collections.sort(parksList, distanceComparator);
+            return parksList;
+        } else {
+            IDComparator idComparator = new IDComparator();
+            Collections.sort(parksList, idComparator);
+            return parksList;
         }
     }
 

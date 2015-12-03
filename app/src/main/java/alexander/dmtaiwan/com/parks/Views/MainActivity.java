@@ -195,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
 
     @Override
     public void handleNewLocation(Location location) {
+        Log.i(LOG_TAG, "onNewLocation");
         Utilities.setUserLocation(location, this);
     }
 }

@@ -15,7 +15,7 @@
     <dimen name="recycler_padding_vertical">8dp</dimen>
     <dimen name="recycler_padding_horizontal">8dp</dimen>
     <dimen name="recycler_margin_horizontal">8dp</dimen>
-    <dimen name="recycler_margin_bottom">8dp</dimen>
-    <dimen name="recycler_margin_top">16dp</dimen>
+    <dimen name="recycler_margin_bottom">4dp</dimen>
+    <dimen name="recycler_margin_top">8dp</dimen>
 
 </resources>

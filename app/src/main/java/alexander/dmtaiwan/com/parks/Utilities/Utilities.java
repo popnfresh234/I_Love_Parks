@@ -18,6 +18,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 
 import alexander.dmtaiwan.com.parks.Models.HttpResponse;
+import alexander.dmtaiwan.com.parks.Models.Park;
 import alexander.dmtaiwan.com.parks.R;
 
 /**
@@ -31,6 +32,9 @@ public class Utilities {
     public static final String FILE_NAME = "parkData.json";
     public static final Double TAIPEI_LAT = 25.033611;
     public static final Double TAIPEI_LONG = 121.565;
+
+    //Intent Extras
+    public static final String EXTRA_PARK = "com.dmtaiwan.alexander.park";
 
     //Outstate strings
     public static final String OUTSTATE_NAV_POSITION = "com.dmtaiwan.alexander.nav_position";
@@ -171,5 +175,29 @@ public class Utilities {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String sortKey = prefs.getString(context.getString(R.string.pref_sort_order_key), context.getString(R.string.pref_sort_default_value));
         return sortKey;
+    }
+
+    public static String getParkData(int position, Park mPark) {
+        switch (position){
+            case 0: return mPark.getParkName();
+            case 1: return mPark.getLocation();
+            case 2: return mPark.getParkType();
+            case 3: return mPark.getYearBuilt();
+            case 4: return mPark.getManagementName();
+            case 5: return mPark.getManageTelephone();
+            default:return null;
+        }
+    }
+
+    public static String getParkDetailHeader(int position, Context mContext) {
+        switch (position) {
+            case 0: return mContext.getString(R.string.detail_header_name);
+            case 1: return mContext.getString(R.string.detail_header_location);
+            case 2: return mContext.getString(R.string.detail_header_type);
+            case 3: return mContext.getString(R.string.detail_header_year);
+            case 4: return mContext.getString(R.string.detail_header_management_name);
+            case 5: return mContext.getString(R.string.detail_header_management_number);
+         default:return null;
+        }
     }
 }

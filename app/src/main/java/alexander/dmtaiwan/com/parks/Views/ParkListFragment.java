@@ -1,6 +1,7 @@
 package alexander.dmtaiwan.com.parks.Views;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import alexander.dmtaiwan.com.parks.Bus.SettingsEvent;
 import alexander.dmtaiwan.com.parks.Models.Park;
 import alexander.dmtaiwan.com.parks.R;
 import alexander.dmtaiwan.com.parks.Utilities.AdapterParkList;
+import alexander.dmtaiwan.com.parks.Utilities.Utilities;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -28,6 +30,8 @@ import butterknife.ButterKnife;
  * Created by lenovo on 11/26/2015.
  */
 public class ParkListFragment extends Fragment implements AdapterParkList.RecyclerClickListener{
+
+    private static final String LOG_TAG = ParkListFragment.class.getSimpleName();
 
     @Bind(R.id.recycler_view_parks_list)
     RecyclerView mRecyclerView;
@@ -87,6 +91,8 @@ public class ParkListFragment extends Fragment implements AdapterParkList.Recycl
 
     @Override
     public void onRecyclerClick(Park park) {
-
+        Intent intent = new Intent(getActivity(), ParkDetailActivity.class);
+        intent.putExtra(Utilities.EXTRA_PARK, park);
+        startActivity(intent);
     }
 }

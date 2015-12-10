@@ -11,6 +11,16 @@
     <string name="error_network">Network currently unavailable, check network status and try again!</string>
     <string name="error_http">The server is not responding, please try again later</string>
 
+    <!--Detail Header Strings-->
+    <string name="detail_header_name">Park Name</string>
+    <string name="detail_header_location">Location</string>
+    <string name="detail_header_type">Park type</string>
+    <string name="detail_header_year">Year Built</string>
+    <string name="detail_header_management_name">Management</string>
+    <string name="detail_header_management_number">Phone</string>
+
+
+
     <!--Shared Prefs Labels-->
     <string name="pref_sort_order_key">sort</string>
     <string name="pref_sort_order_label">Sort order</string>

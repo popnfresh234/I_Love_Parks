@@ -25,6 +25,7 @@
         </activity>
 
         <activity android:name=".Views.SettingsActivity"/>
+        <activity android:name=".Views.ParkDetailActivity"/>
     </application>
 
 </manifest>

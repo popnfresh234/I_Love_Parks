@@ -4,6 +4,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <!--Collapsing Image Height-->
+    <dimen name="collapsing_image_height">200dp</dimen>
 
     <!--TextSizes-->
     <dimen name="font_large">28sp</dimen>
@@ -17,5 +19,10 @@
     <dimen name="recycler_margin_horizontal">8dp</dimen>
     <dimen name="recycler_margin_bottom">4dp</dimen>
     <dimen name="recycler_margin_top">8dp</dimen>
+
+    <dimen name="detail_padding_top">16dp</dimen>
+    <dimen name="detail_item_margin_right">16dp</dimen>
+    <dimen name="detail_item_margin_left">16dp</dimen>
+    <dimen name="detail_list_view_padding">9dp</dimen>
 
 </resources>

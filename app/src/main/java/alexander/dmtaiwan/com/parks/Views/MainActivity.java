@@ -3,7 +3,9 @@ package alexander.dmtaiwan.com.parks.Views;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -45,7 +47,11 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
     @Bind(R.id.toolbar_progress)
     ProgressBar mProgressBar;
 
+    @Bind(R.id.coordinator_layout)
+    CoordinatorLayout mCoordinatorLayout;
+
     private final static String LOG_TAG = MainActivity.class.getSimpleName();
+
 
     private MainPresenter mPresenter;
     private int mNavPositoin;
@@ -163,7 +169,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
 
     @Override
     public void onError(String error) {
-        Log.i(LOG_TAG, error);
+        Snackbar snackbar = Snackbar.make(mCoordinatorLayout, error, Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
     @Override
